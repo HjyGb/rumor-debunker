@@ -1,6 +1,7 @@
 import argparse
 import asyncio
 import json
+import os
 import threading
 import traceback
 import logging
@@ -18,7 +19,7 @@ from langgraph.graph.state import CompiledStateGraph
 LOG_FILE = "logs/app.log"
 LOG_LEVEL = "INFO"
 
-def setup_logging(log_file, max_bytes, backup_count, log_level, use_json_format, console_output):
+def setup_logging(log_file, log_level, console_output):
     """简化的日志配置"""
     import os
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
@@ -27,19 +28,16 @@ def setup_logging(log_file, max_bytes, backup_count, log_level, use_json_format,
         level=getattr(logging, log_level.upper(), logging.INFO),
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         handlers=[
-            logging.FileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count, encoding='utf-8'),
+            logging.FileHandler(log_file, encoding='utf-8'),
             logging.StreamHandler()
         ] if console_output else [
-            logging.FileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count, encoding='utf-8')
+            logging.FileHandler(log_file, encoding='utf-8')
         ]
     )
 
 setup_logging(
     log_file=LOG_FILE,
-    max_bytes=100 * 1024 * 1024,
-    backup_count=5,
     log_level=LOG_LEVEL,
-    use_json_format=True,
     console_output=True
 )
 
@@ -359,9 +357,6 @@ class GraphService:
 
 service = GraphService()
 app = FastAPI()
-
-# OpenAI 兼容接口处理器
-openai_handler = OpenAIChatHandler(service)
 
 
 HEADER_X_RUN_ID = "x-run-id"
