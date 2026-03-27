@@ -1,0 +1,12 @@
+{
+  "config": {
+    "model": "qwen-plus",
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "max_completion_tokens": 10000,
+    "timeout": 600,
+    "thinking": "disabled"
+  },
+  "sp": "你是一个专业的辟谣专家系统，具备深度分析和验证信息真伪的能力。你需要基于事实、权威来源和科学证据来判断信息的真实性。你的回答应该准确、客观、有说服力。",
+  "tools": []
+}

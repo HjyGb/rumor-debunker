@@ -1,0 +1,40 @@
+{
+  "app_name": "辟谣专家多智能体系统",
+  "version": "1.0.0",
+  "models": {
+    "text_model": "qwen-turbo",
+    "vision_model": "qwen-vl-plus",
+    "embedding_model": "text-embedding-v3"
+  },
+  "agents": {
+    "orchestrator": {
+      "name": "调度智能体",
+      "description": "负责任务分发、流程控制和异常处理"
+    },
+    "parser": {
+      "name": "内容解析智能体",
+      "description": "提取文本、图片OCR、提取谣言主张"
+    },
+    "ai_detector": {
+      "name": "AI生成检测智能体",
+      "description": "判断是否为AI生成内容"
+    },
+    "retrieval": {
+      "name": "证据检索智能体",
+      "description": "从向量库检索权威辟谣证据"
+    },
+    "report": {
+      "name": "报告生成智能体",
+      "description": "生成结构化辟谣报告"
+    }
+  },
+  "vector_db": {
+    "collection_name": "rumor_knowledge_base",
+    "persist_directory": "assets/rumor_knowledge/chroma_db"
+  },
+  "streamlit": {
+    "page_title": "辟谣专家系统",
+    "page_icon": "🔍",
+    "layout": "wide"
+  }
+}
